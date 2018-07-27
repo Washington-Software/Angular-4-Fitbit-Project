@@ -4,18 +4,18 @@
   </h1>
 </div>
 <h2>Placeholder Login </h2>
-<div *ngIf="!(apiToken==null) && apiToken.length!=0; else loggedOut">
+<div *ngIf="isLoggedIn(); else loggedOut">
   <h2>Welcome! You've already authorised a token.</h2>
   <div>
     <button class="btn btn-default" (click)="logout()">De-authorise</button>
   </div>
   <!-- Used for debug only -->
   <div>
-    {{apiToken}}
+    {{container.get("apiToken")}}
   </div>
-  <div *ngIf="scope.length<3">
+  <div *ngIf="container.get('scope').length<3">
     <h3>Error: It appears you have granted less than the necessary permissions for this application to work.
-    Please reauthorise and allow all permissions requested.
+      Please reauthorise and allow all permissions requested (at minimum, profile, sleep, and heartbeat are required).
     </h3>
   </div>
 </div>

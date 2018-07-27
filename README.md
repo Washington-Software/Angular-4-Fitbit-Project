@@ -1,28 +1,16 @@
-# OauthApp
+# Angular 4 Fitbit Project
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.10.
+An Angular 4 app that allows the user to graph their heartrate during sleep and determines of what type the sleep was.
 
-## Development server
+## Authentication
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+The app uses OAuth2 and tokens in order to authenticate and pull data from the Fitbit API. On first use, the app will prompt the user to login to their Fitbit account and authorise the app.
 
-## Code scaffolding
+## TODO:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-# Angular-4-Fitbit-Project
+- Move previous Java and JS code to Angular
+- Write an HTTPClient service for making requests
+- Write interfaces for proper typing
+- Move config variables to YAML or something similar
+- Improve UI
+- Code comments
