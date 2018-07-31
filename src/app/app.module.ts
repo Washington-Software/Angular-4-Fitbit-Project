@@ -8,6 +8,8 @@ import {HomeComponent} from "./home/home.component";
 import {FormsModule} from "@angular/forms";
 import {AppRoutingModule} from './app-routing.module';
 import {PersistenceModule} from "angular-persistence";
+import {DataService} from "./data.service";
+import {DatePipe} from "@angular/common";
 
 
 @NgModule({
@@ -23,7 +25,7 @@ import {PersistenceModule} from "angular-persistence";
     AppRoutingModule,
     PersistenceModule
   ],
-  providers: [],
+  providers: [DataService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {

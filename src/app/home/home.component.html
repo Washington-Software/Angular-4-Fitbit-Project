@@ -1,5 +1,8 @@
-<h1>Placeholder Home</h1>
-
-<div *ngIf="container.get('apiToken')!=null">
-{{container.get('apiToken')}}
+<div *ngIf="title!=null; else noName">
+  <h1>Welcome back, {{title}}!</h1>
 </div>
+
+<ng-template #noName>
+  <h1>Welcome, Guest!</h1>
+</ng-template>
+
