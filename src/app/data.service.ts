@@ -122,6 +122,11 @@ export class DataService {
     let formattedEndDate = this.datepipe.transform(endDate, "yyyy-MM-dd");
     let formattedStartTime = this.datepipe.transform(startDate, "HH:mm");
     let formattedEndTime = this.datepipe.transform(endDate, "HH:mm");
+    console.log(startDate);
+    console.log(endDate);
+    console.log(this.v1BaseUrl + userID + "/activities/heart/date/" + formattedStartDate + "/" +
+      formattedEndDate + "/" + detailLevel + "/time/" + formattedStartTime + "/" + formattedEndTime +
+      ".json");
     return this.http.get<HeartData>(this.v1BaseUrl + userID + "/activities/heart/date/" + formattedStartDate + "/" +
       formattedEndDate + "/" + detailLevel + "/time/" + formattedStartTime + "/" + formattedEndTime +
       ".json", {headers: headers})

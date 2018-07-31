@@ -30,7 +30,8 @@ export class HomeComponent implements OnInit {
         this.dataService.getSleep(this.container.get("userID"), this.container.get("apiToken"), new Date(this.chosen)).subscribe(
           (response: Sleep) => {
             console.log(DataService.getSleepStartAndEnd(response));
-            this.dataService.getHeart(this.container.get("userID"), this.container.get("apiToken"), response[0], response[1], "1min").subscribe(
+            let tempArray = DataService.getSleepStartAndEnd(response); // This is the line you missed
+            this.dataService.getHeart(this.container.get("userID"), this.container.get("apiToken"), tempArray[0], tempArray[1], "1min").subscribe(
               (response: HeartData) => {
                 console.log(response);
                 //console.log(DataService.getHeartrateIntraday(response));
