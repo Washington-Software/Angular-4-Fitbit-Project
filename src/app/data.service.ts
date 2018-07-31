@@ -113,7 +113,7 @@ export class DataService {
    * @return {Observable<HeartData>} An `Observable` that emits a HeartData object
    */
   public getHeart(userID: string, apiKey: string, startDate: Date, endDate: Date, detailLevel: string): Observable<HeartData> {
-    if (!(detailLevel === <string>"1sec" && detailLevel === <string>"1min")) {
+    if (!(detailLevel === <string>"1sec" || detailLevel === <string>"1min")) {
       throw Error("Improper detailLevel. Expected '1sec' or '1min' but got " + detailLevel + ".");
     }
     let headers = new HttpHeaders();

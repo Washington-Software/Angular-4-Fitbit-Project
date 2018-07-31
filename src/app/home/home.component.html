@@ -1,7 +1,13 @@
 <div *ngIf="title!=null; else noName">
   <h1>Welcome back, {{title}}!</h1>
 </div>
-
+<div>
+<form (submit)="something()">
+    Choose a date:
+    <input id="date" type="date" >
+    <input type="submit">
+</form>
+</div>
 <ng-template #noName>
   <h1>Welcome, Guest!</h1>
 </ng-template>

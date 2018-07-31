@@ -11,7 +11,7 @@ export class LoginComponent implements OnInit {
 
   public container: IPersistenceContainer;
   title = 'Sleep Grapher';
-  private appKey: String = '22CXTV';
+  private appKey: String = '22D2L9';
   private extractTokenRegex = /#access_token=(.*?)&/g;
   private extractIDRegex = /user_id=(.*?)&/g;
   private extractScopeRegex = /scope=(.*?)&/g;

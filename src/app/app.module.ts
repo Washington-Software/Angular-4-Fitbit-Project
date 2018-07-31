@@ -10,20 +10,24 @@ import {AppRoutingModule} from './app-routing.module';
 import {PersistenceModule} from "angular-persistence";
 import {DataService} from "./data.service";
 import {DatePipe} from "@angular/common";
+import {GraphComponent} from "./graph/graph.component";
+import {HttpModule} from '@angular/http';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    GraphComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    PersistenceModule
+    PersistenceModule,
+    HttpModule
   ],
   providers: [DataService, DatePipe],
   bootstrap: [AppComponent]
