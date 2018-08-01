@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
+import {PersistenceService, StorageType} from "angular-persistence";
+import {DataService, Sleep, UserSummary, HeartData} from "../data.service";
 
 @Component({
   selector: 'graph',
@@ -9,34 +11,47 @@ import 'rxjs/add/operator/map';
 })
 
 export class GraphComponent implements OnInit {
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
-  title = 'Fitbit Project!';
-  private apiUrl = 'https://address-book-demo.herokuapp.com/api/contacts';
+  public container;
+  public userSummary: UserSummary;
+  public sleepSummary;
+  public heart;
+  chosen: string;
+  title: string;
   
-  data: any = {};
-
-  constructor(private http: Http) {
-    console.log('Hello fellow user');
-    this.getContacts();
-//    this.getData();
+//  constructor(private http: Http) {
+//    console.log('Hello fellow user');
+//    this.getContacts();
+//
+//  }
+  constructor(private persistenceService: PersistenceService, private dataService: DataService) {
+    this.container = persistenceService.createContainer('com.wasoftware.fitbit', {type: StorageType.SESSION});
   }
+  ngOnInit(): void {
+    if (this.container.get("apiToken") != null) {
+      this.dataService.getProfile(this.container.get("userID"), this.container.get("apiToken")).subscribe((response: UserSummary) => {
+        this.userSummary = response;
+        this.title = this.userSummary.user.fullName;
+      });
+      if (this.chosen != null) {
+        this.dataService.getSleep(this.container.get("userID"), this.container.get("apiToken"), new Date(this.chosen)).subscribe(
+          (response: Sleep) => {
+            console.log(DataService.getSleepStartAndEnd(response));
+            let tempArray = DataService.getSleepStartAndEnd(response); // This is the line you missed
+            this.dataService.getHeart(this.container.get("userID"), this.container.get("apiToken"), tempArray[0], tempArray[1], "1min").subscribe(
+              (response: HeartData) => {
+                console.log(response);
+                console.log(DataService.getHeartrateIntraday(response));
+              });
 
-  getData() {
-    return this.http.get(this.apiUrl)
-      .map((res: Response) => res.json());
+          });
+      }
+    }
   }
-
-  getContacts() {
-    this.getData().subscribe(data => {
-      console.log(data);
-      this.data = data;
-    });
-  }
+//  title = 'Fitbit Project!';
   something() {
-    const chosen  = document.forms[0].date.value;
-    console.log(chosen);
+    this.chosen  = document.forms[0].date.value;
+    console.log(this.chosen);
+    this.ngOnInit();
     const tday = new Date();
     const d = tday.getDate();
     const m = tday.getMonth() + 1; // January is 0!
