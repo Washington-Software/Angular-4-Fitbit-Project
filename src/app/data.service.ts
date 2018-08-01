@@ -57,7 +57,7 @@ export class DataService {
     let beatArray: number[] = [];
     for (let i = 0; i < intradayArray.length; i++) {
       let tempArray = intradayArray[i];
-      dateArray.push(new Date(tempArray.time));
+      dateArray.push(new Date(heartData["activities-heart"][0].dateTime + "T" + tempArray.time));
       beatArray.push(tempArray.value);
     }
     return [dateArray, beatArray]
@@ -260,7 +260,7 @@ export interface Summary {
 }
 
 export interface HeartData {
-  'activities-heart': HeartDataSummary;
+  'activities-heart': HeartDataSummary[];
   'activities-heart-intraday': HeartDataIntraday;
 }
 
