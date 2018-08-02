@@ -8,9 +8,10 @@ The app uses OAuth2 and tokens in order to authenticate and pull data from the F
 
 ## TODO:
 
+- Convert to mobile app
 - ~~Move previous Java and JS code to Angular~~
 - ~~Write an HTTPClient service for making requests~~
 - ~~Write interfaces for proper typing~~
 - Move config variables to YAML or something similar
 - Improve UI
-- Code comments (IN PROGRESS)
+- ~~Code comments~~

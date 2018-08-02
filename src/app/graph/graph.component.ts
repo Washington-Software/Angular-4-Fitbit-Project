@@ -15,17 +15,18 @@ export class GraphComponent implements OnInit {
   private static datePipe = new DatePipe("en-US");
   public container;
   public userSummary: UserSummary;
-  chosen: string;
-  title: string;
-  data;
-  start;
-  end;
-  avg: number;
+  public avg: number;
   public analysis: string;
+  private chosen: string;
+  private userFullName: string;
+  private heartRateData: [Date[], number[]];
+  private start: Date;
+  private end: Date;
 
   constructor(private persistenceService: PersistenceService, private dataService: DataService) {
     this.container = persistenceService.createContainer('com.wasoftware.fitbit', {type: StorageType.SESSION});
   }
+
   /**
    * Analyzes the heart rate data by providing statistics used to define the pattern of sleep.
    * @param {[Date[], number[]]} heartData An array containing the time and values for each heart rate data point.
@@ -167,24 +168,21 @@ export class GraphComponent implements OnInit {
       return "No known pattern found.";
     }
   }
+
   /**
-   * Creating the moving mean array using the data array
-   * @param data An array containing the time and values for each heart rate data point
+   * Creates the moving mean array using the data array
+   * @param {[Date[], number[]]} data An array containing the time and values for each heart rate data point
    */
-  public calculateMeans(data): void {
-    var sum = 0;
-    var i;
-    for (i = 0; i < data[1].length; i++) {
+  public calculateMeans(data: [Date[], number[]]): void {
+    let sum = 0;
+    for (let i = 0; i < data[1].length; i++) {
       sum += data[1][i];
     }
-    this.avg = sum / data[1].length;
-
-    //var movingMeans = [];
-    var movingMeanTime = [];
-    var movingMeanValue = [];
+    this.avg = Math.round((sum / data[1].length) * 100) / 100;
 
     let movingMeans: [Date[], number[]] = [[], []];
-
+    let movingMeanTime: Date[] = [];
+    let movingMeanValue: number[] = [];
 
     for (let j = 5; j < data[1].length - 5; j++) {
       movingMeanTime.push(data[0][j]);
@@ -193,34 +191,35 @@ export class GraphComponent implements OnInit {
 
     movingMeans[0] = movingMeanTime;
     movingMeans[1] = movingMeanValue;
-    
+
     // graphing the data points and moving mean
     this.graph(data, movingMeans);
     // analyzing the data
     this.analysis = GraphComponent.analyse(data, movingMeans);
   }
-  
+
   /**
    * Produces a line graph using the times and values of each heart rate data point.
+   *
+   * @param {[Date[], number[]]} hrData An array of heartrate points and `Date` points
+   * @param {[Date[], number[]]} movingMeans An array of moving means points and `Date` points
    */
-  public graph(dates, movingMeans): void {
-    let datesPoints = [];
-    for (let i = 0; i < dates[0].length; i++) {
-      datesPoints.push({x: dates[0][i], y: dates[1][i]});
+  public graph(hrData: [Date[], number[]], movingMeans: [Date[], number[]]): void {
+    let hrPoints = [];
+    for (let i = 0; i < hrData[0].length; i++) {
+      hrPoints.push({x: hrData[0][i], y: hrData[1][i]});
     }
 
-    var datesPointsMM = [];
+    let datesPointsMM = [];
     for (let j = 0; j < movingMeans[0].length; j++) {
       datesPointsMM.push({x: movingMeans[0][j], y: movingMeans[1][j]});
     }
 
-    var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var chart = new CanvasJS.Chart("chartContainer", {
+    new CanvasJS.Chart("chartContainer", {
       animationEnabled: true,
       exportEnabled: true,
       title: {
-        text: "Sleeping Heart Rate from " + this.start + " to " + this.end,
+        text: "Sleeping Heart Rate from " + GraphComponent.datePipe.transform(this.start, "yyyy-MM-dd HH:mm") + " to " + GraphComponent.datePipe.transform(this.end, "yyyy-MM-dd HH:mm") + " for " + this.userFullName,
       },
       axisY: {
         title: "BPM",
@@ -234,7 +233,7 @@ export class GraphComponent implements OnInit {
         yValueFormatString: "",
         xValueFormatString: "HH:mm",
         markerSize: 5,
-        dataPoints: datesPoints
+        dataPoints: hrPoints
       },
         {
           type: "line",
@@ -243,42 +242,37 @@ export class GraphComponent implements OnInit {
           markerSize: 5,
           dataPoints: datesPointsMM
         }]
-    });
-    chart.render();
+    }).render();
   }
 
   ngOnInit(): void {
     if (this.container.get("apiToken") != null) {
       this.dataService.getProfile(this.container.get("userID"), this.container.get("apiToken")).subscribe((response: UserSummary) => {
         this.userSummary = response;
-        this.title = this.userSummary.user.fullName;
+        this.userFullName = this.userSummary.user.fullName;
       });
       if (this.chosen != null) {
         this.dataService.getSleep(this.container.get("userID"), this.container.get("apiToken"), new Date(this.chosen)).subscribe(
           (response: Sleep) => {
-            console.log(DataService.getSleepStartAndEnd(response));
-            let tempArray = DataService.getSleepStartAndEnd(response); // This is the line you missed
+            let tempArray = DataService.getSleepStartAndEnd(response);
             this.start = tempArray[0];
             this.end = tempArray[1];
             this.dataService.getHeart(this.container.get("userID"), this.container.get("apiToken"), tempArray[0], tempArray[1], "1min").subscribe(
               (response: HeartData) => {
-                console.log(response);
-                console.log(DataService.getHeartrateIntraday(response));
-                let tempdata = DataService.getHeartrateIntraday(response);
-                this.data = tempdata;
-                this.calculateMeans(this.data);
+                this.heartRateData = DataService.getHeartrateIntraday(response);
+                this.calculateMeans(this.heartRateData);
               });
-
           });
       }
     }
   }
-  
-  /** 
-   * Called when the user submits a date with the datepicker. 
-   * Defines the chosen date to call the Fitbit API to get the heart rate data for the chosen date. 
+
+
+  /**
+   * Called when the user submits a date with the datepicker.
+   * Defines the chosen date to call the Fitbit API to get the heart rate data for the chosen date.
    */
-  something() {
+  public getAndGraph(): void {
     this.chosen = document.forms[0].date.value;
     console.log(this.chosen);
     this.ngOnInit();
@@ -300,6 +294,5 @@ export class GraphComponent implements OnInit {
     }
     const today = y.toString() + '-' + mm + '-' + dd;
     console.log(today);
-
   }
 }
