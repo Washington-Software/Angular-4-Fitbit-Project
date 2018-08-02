@@ -17,6 +17,7 @@ export class GraphComponent implements OnInit {
   public heart;
   chosen: string;
   title: string;
+  data;
   
 //  constructor(private http: Http) {
 //    console.log('Hello fellow user');
@@ -41,6 +42,9 @@ export class GraphComponent implements OnInit {
               (response: HeartData) => {
                 console.log(response);
                 console.log(DataService.getHeartrateIntraday(response));
+                let tempdata = DataService.getHeartrateIntraday(response);
+                this.data = tempdata;
+                
               });
 
           });

@@ -9,56 +9,38 @@
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script type="text/javascript">
 
-/* something() is called when user submits the datepicker */
-        something = function() {
-			chosen = document.forms[0].date.value;
-
-            var today = new Date();
-            var dd = today.getDate();
-            var mm = today.getMonth()+1; //January is 0!
-            var yyyy = today.getFullYear();
-            if(dd<10) {
-                dd = '0'+dd
-            }
-            if(mm<10) {
-                mm = '0'+mm
-            }
-            today = yyyy + '-' + mm + '-' + dd;
-
-        	/* calling some function to retrieve data array*/
-        	var data = getHeartRateData();
-        	doStuff(data); /*send HRdata here  */
-        }
         	/*data/dates is an array: [0] is start and end dates: [0][0] is start date in format yyyy-dd-mm and [0][1] is end date in format yyyy-dd-mm
 [1] is array of timestamps for each heart rate value
 [2] is array of heart rate values corresponding to each timestamp*/
 /*movingMeans is an array: [0] is timestamps, [1] is average of the 5 values before and 5 values after
 movingMeans starts later than data*/
 
+		var data = document.forms[0].date.value;
+		console.log({{data}});
+        doStuff = function(data) {
+         	console.log("test");
+			var sum = 0;
+            var i;
+            for (i = 0; i < data[2].length; i++) {
+                sum+=data[2][i];
+            }
+            var avg = sum/data[2].length;
+            self.avgHR=avg;
+            self.HRdate=data[0][0];
+            var movingMeans = [];
+            var movingMeanTime=[];
+            var movingMeanValue = [];
+            var j;
+            for (j=5; j < data[2].length-5; j++) {
+                movingMeanTime.push(data[1][j]);
+                movingMeanValue.push((data[2][j-5]+data[2][j-4]+data[2][j-3]+data[2][j-2]+data[2][j-1]+data[2][j]+data[2][j+1]+data[2][j+2]+data[2][j+3]+data[2][j+4]+data[2][j+5])/11);
+            }
+            movingMeans.push(movingMeanTime);
+            movingMeans.push(movingMeanValue);
+            graph(data, movingMeans);
 
-            doStuff = function(data) {
-                var sum = 0;
-                var i;
-                for (i = 0; i < data[2].length; i++) {
-                    sum+=data[2][i];
-                }
-                var avg = sum/data[2].length;
-                self.avgHR=avg;
-                self.HRdate=data[0][0];
-                var movingMeans = [];
-                var movingMeanTime=[];
-                var movingMeanValue = [];
-                var j;
-                for (j=5; j < data[2].length-5; j++) {
-                    movingMeanTime.push(data[1][j]);
-                    movingMeanValue.push((data[2][j-5]+data[2][j-4]+data[2][j-3]+data[2][j-2]+data[2][j-1]+data[2][j]+data[2][j+1]+data[2][j+2]+data[2][j+3]+data[2][j+4]+data[2][j+5])/11);
-                }
-                movingMeans.push(movingMeanTime);
-                movingMeans.push(movingMeanValue);
-                graph(data, movingMeans);
-
-                self.analysis=analyze(data, movingMeans);
-            };
+            self.analysis=analyze(data, movingMeans);
+        };
 		
 
 		graph = function (dates, movingMeans) {
