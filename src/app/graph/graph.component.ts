@@ -220,7 +220,7 @@ export class GraphComponent implements OnInit {
       animationEnabled: true,
       exportEnabled: true,
       title: {
-        text: "Sleeping Heart Rate from " + this.start + " to " + this.end,
+        text: "Sleeping Heart Rate from " + this.start.toString().substring(0,24) + " to " + this.end.toString().substring(0,24),
       },
       axisY: {
         title: "BPM",
