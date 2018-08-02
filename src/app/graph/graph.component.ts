@@ -26,7 +26,11 @@ export class GraphComponent implements OnInit {
   constructor(private persistenceService: PersistenceService, private dataService: DataService) {
     this.container = persistenceService.createContainer('com.wasoftware.fitbit', {type: StorageType.SESSION});
   }
-
+  /**
+   * Analyzes the heart rate data by providing statistics used to define the pattern of sleep.
+   * @param {[Date[], number[]]} heartData An array containing the time and values for each heart rate data point.
+   * @param {[Date[], number[]]} meansData An array containing the time and values for the moving mean of the heart rate data points.
+   */
   public static analyse(heartData: [Date[], number[]], meansData: [Date[], number[]]): string {
     console.log("Date: " + GraphComponent.datePipe.transform(heartData[0][0], "yyyy-MM-dd"));
     console.log("first value: " + heartData[1][0]);
@@ -140,19 +144,19 @@ export class GraphComponent implements OnInit {
     let fourthQuarterMovingMean = fourthQuarterMovingSum / (meansData[1].length / 4);
     console.log("fourthQuarterMovingMean: " + fourthQuarterMovingMean);
 
-    //Hammock
+    // Testing if the pattern is a hammock
     if ((firstQuarterMean > secondQuarterMean) || ((secondQuarterMean - firstQuarterMean) < 0.75)) {
       if ((fourthQuarterMean > thirdQuarterMean) || ((thirdQuarterMean - fourthQuarterMean) < 0.75)) {
         return "Hammock — you had a good night's sleep!";
       }
     }
-    //Slope
+    // Testing if the pattern is a downward slope
     if ((firstQuarterMean > secondQuarterMean) && (thirdQuarterMean > fourthQuarterMean)) {
       if ((firstQuarterMean > thirdQuarterMean) && (secondQuarterMean > fourthQuarterMean)) {
         return "Downward Slope — your metabolism is working overtime. You may have had a late meal.";
       }
     }
-    //Dune
+    // Testing if the pattern is a dune
     if ((firstHalfMean > heartData[1][0]) || (heartData[1][0] - firstHalfMean) < 0.75) {
       if (secondQuarterMean > firstQuarterMean) {
         return "Dune — you may have slept later than usual.";
@@ -163,7 +167,10 @@ export class GraphComponent implements OnInit {
       return "No known pattern found.";
     }
   }
-
+  /**
+   * Creating the moving mean array using the data array
+   * @param data An array containing the time and values for each heart rate data point
+   */
   public calculateMeans(data): void {
     var sum = 0;
     var i;
@@ -186,11 +193,16 @@ export class GraphComponent implements OnInit {
 
     movingMeans[0] = movingMeanTime;
     movingMeans[1] = movingMeanValue;
+    
+    // graphing the data points and moving mean
     this.graph(data, movingMeans);
-
+    // analyzing the data
     this.analysis = GraphComponent.analyse(data, movingMeans);
-  };
-
+  }
+  
+  /**
+   * Produces a line graph using the times and values of each heart rate data point.
+   */
   public graph(dates, movingMeans): void {
     let datesPoints = [];
     for (let i = 0; i < dates[0].length; i++) {
@@ -261,7 +273,11 @@ export class GraphComponent implements OnInit {
       }
     }
   }
-
+  
+  /** 
+   * Called when the user submits a date with the datepicker. 
+   * Defines the chosen date to call the Fitbit API to get the heart rate data for the chosen date. 
+   */
   something() {
     this.chosen = document.forms[0].date.value;
     console.log(this.chosen);
