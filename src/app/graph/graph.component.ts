@@ -20,6 +20,8 @@ export class GraphComponent implements OnInit {
   data;
   start;
   end;
+  avg;
+  analysis;
 
   constructor(private persistenceService: PersistenceService, private dataService: DataService) {
     this.container = persistenceService.createContainer('com.wasoftware.fitbit', {type: StorageType.SESSION});
@@ -117,8 +119,7 @@ export class GraphComponent implements OnInit {
     for (i = 0; i < data[1].length; i++) {
       sum += data[1][i];
     }
-    var avg = sum / data[1].length;
-    console.log(avg);
+    this.avg = sum / data[1].length;
 
     var movingMeans = [];
     var movingMeanTime = [];
@@ -132,7 +133,7 @@ export class GraphComponent implements OnInit {
     movingMeans.push(movingMeanValue);
     this.graph(data, movingMeans);
 
-    this.analyze(data, movingMeans);
+    this.analysis = this.analyze(data, movingMeans);
   };
 
 
