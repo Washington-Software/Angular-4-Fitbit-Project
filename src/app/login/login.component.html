@@ -8,17 +8,12 @@
   <div>
     <button class="btn btn-default" (click)="logout()">De-authorise</button>
   </div>
-  <!-- Used for debug only >
-  <div>
-    {{container.get("apiToken")}}
-  </div -->
   <div *ngIf="container.get('scope').length<3">
     <h3>Error: It appears you have granted less than the necessary permissions for this application to work.
       Please reauthorise and allow all permissions requested (at minimum, profile, sleep, and heartbeat are required).
     </h3>
   </div>
 </div>
-
 
 <ng-template #loggedOut>
   <h2>No token found. Please authorise a Fitbit Token.</h2>
