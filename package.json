@@ -24,6 +24,11 @@
     "@types/canvasjs": "^1.9.2",
     "angular-persistence": "^1.0.1",
     "canvasjs": "^1.8.1",
+    "cordova-android": "^7.1.1",
+    "cordova-browser": "^5.0.3",
+    "cordova-plugin-customurlscheme": "^4.3.0",
+    "cordova-plugin-inappbrowser": "^3.0.0",
+    "cordova-plugin-whitelist": "1",
     "core-js": "^2.4.1",
     "rxjs": "^5.4.2",
     "zone.js": "^0.8.14"
@@ -48,5 +53,21 @@
     "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
     "typescript": "~2.3.3"
+  },
+  "cordova": {
+    "platforms": [
+      "android",
+      "browser"
+    ],
+    "plugins": {
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-customurlscheme": {
+        "URL_SCHEME": "sleepgraph",
+        "ANDROID_SCHEME": " ",
+        "ANDROID_HOST": " ",
+        "ANDROID_PATHPREFIX": "/"
+      }
+    }
   }
 }

@@ -52,8 +52,9 @@ export class LoginComponent implements OnInit {
    */
   private authoriseWithFitbit(): void {
     this.document.location.href = 'https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=' + this.appKey +
-      '&redirect_uri=http%3A%2F%2Flocalhost:4200%2Flogin&scope=heartrate%20profile%20sleep&expires_in=600';
+      '&scope=heartrate%20profile%20sleep&expires_in=600';
   }
+  //&redirect_uri=sleepgrapher%3A%2F%2F#%2Flogin
 
   /**
    * Checks whether the user is logged in by verifying if the token exists.
