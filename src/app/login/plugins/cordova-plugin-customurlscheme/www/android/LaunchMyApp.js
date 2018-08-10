@@ -1,3 +1,4 @@
+cordova.define("cordova-plugin-customurlscheme.LaunchMyApp", function(require, exports, module) {
 (function () {
     "use strict";
 
@@ -44,3 +45,5 @@
   module.exports = launchmyapp;
 
 }());
+
+});

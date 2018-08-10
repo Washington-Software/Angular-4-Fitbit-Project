@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/kisaayano/git/FitbitApp/platforms/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "outputFile": "/home/kisaayano/git/Angular-4-Fitbit-Project/platforms/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
             "map": [
                 {
-                    "source": "/home/kisaayano/git/FitbitApp/platforms/android/app/src/main/res/values/strings.xml",
+                    "source": "/home/kisaayano/git/Angular-4-Fitbit-Project/platforms/android/app/src/main/res/values/strings.xml",
                     "from": {
                         "startLines": "4,2,3",
                         "startColumns": "4,4,4",

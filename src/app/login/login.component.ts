@@ -1,6 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {DOCUMENT} from "@angular/common";
 import {IPersistenceContainer, PersistenceService, StorageType} from "angular-persistence";
+import {OauthCordova} from "ng2-cordova-oauth/platform/cordova";
+import {Fitbit} from "ng2-cordova-oauth/provider/fitbit";
+import {DeviceDetectorService} from "ngx-device-detector"
+import {OauthBrowser} from "../../../node_modules/ng2-cordova-oauth/platform/browser";
+import {Oauth} from "../../../node_modules/ng2-cordova-oauth/oauth";
 
 @Component({
   selector: 'login',
@@ -20,9 +25,10 @@ export class LoginComponent implements OnInit {
    * Inject dependencies and create the persistence container.
    * @param {any} document A reference to the DOM object. Used to get the current URL and any callbacks.
    * @param {PersistenceService} persistenceService A persistence service used to create a Persistence Container.
+   * @param {DeviceDetectorService} deviceService A service used to determine the type of device currently in use
    */
-  constructor(@Inject(DOCUMENT) private document: any, private persistenceService: PersistenceService) {
-    this.container = persistenceService.createContainer('com.wasoftware.fitbit', {type: StorageType.SESSION});
+  constructor(@Inject(DOCUMENT) private document: any, private persistenceService: PersistenceService, private deviceService: DeviceDetectorService) {
+    this.container = persistenceService.createContainer('com.wasoftware.fitbit', {type: StorageType.LOCAL});
   }
 
   /**
@@ -51,8 +57,34 @@ export class LoginComponent implements OnInit {
    * Redirects the user to the Fitbit authorisation page, authenticating with the provided app key.
    */
   private authoriseWithFitbit(): void {
-    this.document.location.href = 'https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=' + this.appKey +
-      '&scope=heartrate%20profile%20sleep&expires_in=600';
+
+    let oauth: Oauth;
+    if (this.deviceService.isDesktop()){
+      this.document.location.href = 'https://www.fitbit.com/oauth2/authorize?response_type=token' +
+        '&redirect_uri=http%3A%2F%2Ffitbitoauthredirect.cf%2Flogin_desktop&client_id=' + this.appKey +
+        '&scope=heartrate%20profile%20sleep&expires_in=600';
+    }
+    else {
+      oauth = new OauthCordova();
+
+      const provider = new Fitbit({
+        clientId: this.appKey.toString(),
+        appScope: ['profile', 'heartrate', 'sleep'],
+        redirectUri: "http://fitbitoauthredirect.cf/login",
+        responseType: "token"
+      });
+      oauth.logInVia(provider, {location: 'yes', toolbar: 'yes'}).then((success) => {
+        console.log("success");
+        console.log(JSON.stringify(success));
+        this.container.set("apiToken", success["access_token"]);
+        this.container.set("userID", success["user_id"]);
+        this.container.set("scope", success["scope"].split("+"));
+      }, (error) => {
+        console.log("error");
+        console.log(error);
+        console.log(JSON.stringify(error));
+      });
+    }
   }
   //&redirect_uri=sleepgrapher%3A%2F%2F#%2Flogin
 
@@ -64,4 +96,5 @@ export class LoginComponent implements OnInit {
   private isLoggedIn(): boolean {
     return this.container.get("apiToken") != null;
   }
+
 }

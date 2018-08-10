@@ -12,6 +12,7 @@ import {DataService} from "./data.service";
 import {DatePipe} from "@angular/common";
 import {GraphComponent} from "./graph/graph.component";
 import {HttpModule} from '@angular/http';
+import {DeviceDetectorModule} from 'ngx-device-detector'
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {HttpModule} from '@angular/http';
     HttpClientModule,
     AppRoutingModule,
     PersistenceModule,
-    HttpModule
+    HttpModule,
+    DeviceDetectorModule.forRoot()
   ],
   providers: [DataService, DatePipe],
   bootstrap: [AppComponent]

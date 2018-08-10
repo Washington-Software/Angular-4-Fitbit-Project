@@ -1,15 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.cordova.hellocordova" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>HelloCordova</name>
+<widget id="com.wasoftware.angularfitbit" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Sleep Grapher</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        A sleep data graphing app that uses Angular and Cordova
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="chrwang0 <at> icloud.com" href="https://wasoftware.com">
+        Chrwang and ethan8445s
     </author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="*" />
+    <allow-intent href="sleepgraph://" />
     <allow-navigation href="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -24,11 +25,17 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <engine name="android" spec="^7.1.1" />
-    <engine name="browser" spec="^5.0.3" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <plugin name="cordova-plugin-inappbrowser" spec="~3.0.0" />
-    <plugin name="cordova-plugin-customurlscheme" spec="~4.3.0">
+    <hook src="b_prepare.sh" type="before_prepare" />
+    <hook src="a_prepare.js" type="after_prepare" />
+    <plugin name="cordova-plugin-customurlscheme" spec="^4.3.0">
         <variable name="URL_SCHEME" value="sleepgraph" />
+        <variable name="ANDROID_SCHEME" value=" " />
+        <variable name="ANDROID_HOST" value=" " />
+        <variable name="ANDROID_PATHPREFIX" value="/" />
     </plugin>
+    <plugin name="cordova-plugin-device" spec="^2.0.2" />
+    <engine name="android" spec="^7.1.1" />
+    <engine name="browser" spec="^5.0.4" />
 </widget>

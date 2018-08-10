@@ -51,9 +51,9 @@ var AppRoutingModule = (function () {
     return AppRoutingModule;
 }());
 AppRoutingModule = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1__angular_common__["b" /* CommonModule */],
+            __WEBPACK_IMPORTED_MODULE_1__angular_common__["CommonModule"],
             __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* RouterModule */].forRoot(routes, { useHash: true })
         ],
         exports: [
@@ -111,7 +111,7 @@ var AppComponent = (function () {
     return AppComponent;
 }());
 AppComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-root',
         template: __webpack_require__("../../../../../src/app/app.component.html"),
         styles: [__webpack_require__("../../../../../src/app/app.component.css")]
@@ -140,6 +140,8 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__angular_common__ = __webpack_require__("../../../common/@angular/common.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__graph_graph_component__ = __webpack_require__("../../../../../src/app/graph/graph.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_ngx_device_detector__ = __webpack_require__("../../../../ngx-device-detector/ngx-device-detector.umd.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_ngx_device_detector___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_ngx_device_detector__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -159,13 +161,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var AppModule = (function () {
     function AppModule() {
     }
     return AppModule;
 }());
 AppModule = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["M" /* NgModule */])({
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["NgModule"])({
         declarations: [
             __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */],
             __WEBPACK_IMPORTED_MODULE_3__login_login_component__["a" /* LoginComponent */],
@@ -178,9 +181,10 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["b" /* HttpClientModule */],
             __WEBPACK_IMPORTED_MODULE_7__app_routing_module__["a" /* AppRoutingModule */],
             __WEBPACK_IMPORTED_MODULE_8_angular_persistence__["a" /* PersistenceModule */],
-            __WEBPACK_IMPORTED_MODULE_12__angular_http__["a" /* HttpModule */]
+            __WEBPACK_IMPORTED_MODULE_12__angular_http__["a" /* HttpModule */],
+            __WEBPACK_IMPORTED_MODULE_13_ngx_device_detector__["DeviceDetectorModule"].forRoot()
         ],
-        providers: [__WEBPACK_IMPORTED_MODULE_9__data_service__["a" /* DataService */], __WEBPACK_IMPORTED_MODULE_10__angular_common__["d" /* DatePipe */]],
+        providers: [__WEBPACK_IMPORTED_MODULE_9__data_service__["a" /* DataService */], __WEBPACK_IMPORTED_MODULE_10__angular_common__["DatePipe"]],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */]]
     })
 ], AppModule);
@@ -348,8 +352,8 @@ var DataService = (function () {
     return DataService;
 }());
 DataService = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__angular_common__["d" /* DatePipe */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_common__["d" /* DatePipe */]) === "function" && _b || Object])
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__angular_common__["DatePipe"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_common__["DatePipe"]) === "function" && _b || Object])
 ], DataService);
 
 var _a, _b;
@@ -1322,7 +1326,7 @@ var GraphComponent = GraphComponent_1 = (function () {
     function GraphComponent(persistenceService, dataService) {
         this.persistenceService = persistenceService;
         this.dataService = dataService;
-        this.container = persistenceService.createContainer('com.wasoftware.fitbit', { type: __WEBPACK_IMPORTED_MODULE_2_angular_persistence__["c" /* StorageType */].SESSION });
+        this.container = persistenceService.createContainer('com.wasoftware.fitbit', { type: __WEBPACK_IMPORTED_MODULE_2_angular_persistence__["c" /* StorageType */].LOCAL });
     }
     /**
      * Analyzes the heart rate data by providing statistics used to define the pattern of sleep.
@@ -1568,9 +1572,9 @@ var GraphComponent = GraphComponent_1 = (function () {
     };
     return GraphComponent;
 }());
-GraphComponent.datePipe = new __WEBPACK_IMPORTED_MODULE_4__angular_common__["d" /* DatePipe */]("en-US");
+GraphComponent.datePipe = new __WEBPACK_IMPORTED_MODULE_4__angular_common__["DatePipe"]("en-US");
 GraphComponent = GraphComponent_1 = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'graph',
         template: __webpack_require__("../../../../../src/app/graph/graph.component.html"),
         styles: [__webpack_require__("../../../../../src/app/graph/graph.component.css")]
@@ -1654,7 +1658,7 @@ var HomeComponent = (function () {
     return HomeComponent;
 }());
 HomeComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'home',
         template: __webpack_require__("../../../../../src/app/home/home.component.html"),
         styles: [__webpack_require__("../../../../../src/app/home/home.component.css")]
@@ -1700,6 +1704,12 @@ module.exports = "<div style=\"text-align:center\">\n  <h1>\n    Welcome to {{ti
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__("../../../common/@angular/common.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_persistence__ = __webpack_require__("../../../../angular-persistence/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_cordova_oauth_platform_cordova__ = __webpack_require__("../../../../ng2-cordova-oauth/platform/cordova.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng2_cordova_oauth_platform_cordova___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_ng2_cordova_oauth_platform_cordova__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng2_cordova_oauth_provider_fitbit__ = __webpack_require__("../../../../ng2-cordova-oauth/provider/fitbit.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng2_cordova_oauth_provider_fitbit___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_ng2_cordova_oauth_provider_fitbit__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ngx_device_detector__ = __webpack_require__("../../../../ngx-device-detector/ngx-device-detector.umd.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ngx_device_detector___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_ngx_device_detector__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1715,21 +1725,26 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 
 
 
+
+
+
 var LoginComponent = (function () {
     /**
      * Inject dependencies and create the persistence container.
      * @param {any} document A reference to the DOM object. Used to get the current URL and any callbacks.
      * @param {PersistenceService} persistenceService A persistence service used to create a Persistence Container.
+     * @param {DeviceDetectorService} deviceService A service used to determine the type of device currently in use
      */
-    function LoginComponent(document, persistenceService) {
+    function LoginComponent(document, persistenceService, deviceService) {
         this.document = document;
         this.persistenceService = persistenceService;
+        this.deviceService = deviceService;
         this.title = 'Sleep Grapher';
         this.appKey = '22D2L9';
         this.extractTokenRegex = /#access_token=(.*?)&/g;
         this.extractIDRegex = /user_id=(.*?)&/g;
         this.extractScopeRegex = /scope=(.*?)&/g;
-        this.container = persistenceService.createContainer('com.wasoftware.fitbit', { type: __WEBPACK_IMPORTED_MODULE_2_angular_persistence__["c" /* StorageType */].SESSION });
+        this.container = persistenceService.createContainer('com.wasoftware.fitbit', { type: __WEBPACK_IMPORTED_MODULE_2_angular_persistence__["c" /* StorageType */].LOCAL });
     }
     /**
      * Run every time the page is displayed. Checks if the user is logged in, and if there's a callback to be processed.
@@ -1755,8 +1770,27 @@ var LoginComponent = (function () {
      * Redirects the user to the Fitbit authorisation page, authenticating with the provided app key.
      */
     LoginComponent.prototype.authoriseWithFitbit = function () {
-        this.document.location.href = 'https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=' + this.appKey +
-            '&scope=heartrate%20profile%20sleep&expires_in=600';
+        var oauth;
+        if (this.deviceService.isDesktop()) {
+            this.document.location.href = 'https://www.fitbit.com/oauth2/authorize?response_type=token' +
+                '&redirect_uri=http%3A%2F%2Ffitbitoauthredirect.cf%2Flogin_desktop&client_id=' + this.appKey +
+                '&scope=heartrate%20profile%20sleep&expires_in=600';
+        }
+        else {
+            oauth = new __WEBPACK_IMPORTED_MODULE_3_ng2_cordova_oauth_platform_cordova__["OauthCordova"]();
+            var provider = new __WEBPACK_IMPORTED_MODULE_4_ng2_cordova_oauth_provider_fitbit__["Fitbit"]({
+                clientId: this.appKey.toString(),
+                appScope: ['profile', 'heartrate', 'sleep'],
+                redirectUri: "http://fitbitoauthredirect.cf/login",
+                responseType: "token"
+            });
+            oauth.logInVia(provider).then(function (success) {
+                console.log(JSON.stringify(success));
+            }, function (error) {
+                console.log(error);
+                console.log(JSON.stringify(error));
+            });
+        }
     };
     //&redirect_uri=sleepgrapher%3A%2F%2F#%2Flogin
     /**
@@ -1770,16 +1804,16 @@ var LoginComponent = (function () {
     return LoginComponent;
 }());
 LoginComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["o" /* Component */])({
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'login',
         template: __webpack_require__("../../../../../src/app/login/login.component.html"),
         styles: [__webpack_require__("../../../../../src/app/login/login.component.css")]
     }),
-    __param(0, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Inject */])(__WEBPACK_IMPORTED_MODULE_1__angular_common__["c" /* DOCUMENT */])),
-    __metadata("design:paramtypes", [Object, typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_angular_persistence__["b" /* PersistenceService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angular_persistence__["b" /* PersistenceService */]) === "function" && _a || Object])
+    __param(0, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"])(__WEBPACK_IMPORTED_MODULE_1__angular_common__["DOCUMENT"])),
+    __metadata("design:paramtypes", [Object, typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_angular_persistence__["b" /* PersistenceService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angular_persistence__["b" /* PersistenceService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5_ngx_device_detector__["DeviceDetectorService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ngx_device_detector__["DeviceDetectorService"]) === "function" && _b || Object])
 ], LoginComponent);
 
-var _a;
+var _a, _b;
 //# sourceMappingURL=login.component.js.map
 
 /***/ }),
@@ -1815,7 +1849,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 if (__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].production) {
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_23" /* enableProdMode */])();
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["enableProdMode"])();
 }
 Object(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_2__app_app_module__["a" /* AppModule */])
     .catch(function (err) { return console.log(err); });

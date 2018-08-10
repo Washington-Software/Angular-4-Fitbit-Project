@@ -24,5 +24,13 @@
     "variables": {
       "URL_SCHEME": "sleepgraph"
     }
+  },
+  "cordova-plugin-device": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-device"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

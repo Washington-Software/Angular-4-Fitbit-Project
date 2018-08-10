@@ -8,11 +8,11 @@ The app uses OAuth2 and tokens in order to authenticate and pull data from the F
 
 ## TODO:
 
-- Convert to mobile app (IN PROGRESS)
-- Fix and document the new URL callback scheme
+- ~~Convert to mobile app~~
+- ~~Fix and document the new URL callback scheme~~
 - ~~Move previous Java and JS code to Angular~~
 - ~~Write an HTTPClient service for making requests~~
 - ~~Write interfaces for proper typing~~
-- Move config variables to YAML or something similar
-- Improve UI
+- Move config variables to YAML or something similar (WONTFIX)
+- Improve UI (WONTFIX)
 - ~~Code comments~~

@@ -16,6 +16,9 @@
     "cordova-plugin-customurlscheme": {
       "URL_SCHEME": "sleepgraph",
       "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
     }
   },
   "dependent_plugins": {}

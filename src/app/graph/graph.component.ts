@@ -24,7 +24,7 @@ export class GraphComponent implements OnInit {
   private end: Date;
 
   constructor(private persistenceService: PersistenceService, private dataService: DataService) {
-    this.container = persistenceService.createContainer('com.wasoftware.fitbit', {type: StorageType.SESSION});
+    this.container = persistenceService.createContainer('com.wasoftware.fitbit', {type: StorageType.LOCAL});
   }
 
   /**

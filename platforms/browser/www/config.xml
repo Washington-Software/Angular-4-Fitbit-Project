@@ -10,6 +10,7 @@
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="*" />
+    <allow-intent href="sleepgraph://" />
     <allow-navigation href="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -17,4 +18,5 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <hook src="b_prepare.sh" type="before_prepare" />
 </widget>

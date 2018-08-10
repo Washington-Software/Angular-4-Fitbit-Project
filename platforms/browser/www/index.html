@@ -4,9 +4,12 @@
   <meta charset="utf-8">
   <title>OauthApp</title>
   <base href="./">
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src * sleepgraph:;
+                  style-src * 'self' 'unsafe-inline' 'unsafe-eval';
+                  script-src * 'self' 'unsafe-inline' 'unsafe-eval'; image-src *;">
 </head>
 <body>
   <app-root></app-root>
@@ -15,6 +18,10 @@
     function onDeviceReady() {
         window.open = cordova.InAppBrowser.open;
     }
+    function handleOpenURL(url) {
+      var strValue = url;
+      strValue = strValue.replace('sleepgraph://','');
+      window.location.href = strValue;
+    }
 </script>
-<script type="text/javascript" src="LaunchMyApp.js"></script>
 </html>
