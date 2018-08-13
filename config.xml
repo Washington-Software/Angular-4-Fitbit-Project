@@ -4,7 +4,7 @@
     <description>
         A sleep data graphing app that uses Angular and Cordova
     </description>
-    <author email="chrwang0 <at> icloud.com" href="https://wasoftware.com">
+    <author email="chrwang0 &lt;at&gt; icloud.com" href="https://wasoftware.com">
         Chrwang and ethan8445s
     </author>
     <content src="index.html" />
