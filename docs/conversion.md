@@ -79,6 +79,8 @@ If a physical Android device is not available on hand, you will need an Android 
 
 iOS apps can only be built on a macOS computer running at least OS X 10.10.4.
 
+An internet outage happened, so unable to push everything I had, but Cordova has a basic explanation located [here](https://cordova.apache.org/docs/en/latest/guide/platforms/ios/). I'll write up more once the net is back.
+
 ## Setting up a Cordova Project
 
 **Create a new Cordova project** first:
