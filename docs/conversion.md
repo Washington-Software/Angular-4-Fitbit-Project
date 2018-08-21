@@ -128,15 +128,25 @@ Like Android apps, iOS apps can be tested within the iOS emulator and on an actu
 - Building apps requires an Apple ID
 - Non-developer Apple IDs deploy feature-limited versions of apps. For example, in-app purchases, Game Centre, and Apple Pay cannot be used in non-developer account apps.
 
-Thus, it is probably easier to deploy to an emulator. Xcode usually comes bundled with the most recent versions of the simulators, but you may wish to install other versions. To do so, go to **Xcode > Preferences**, and then **selecting the Components pane**. Choose the iOS version to target, and click the **Download** button to install the emulator. If you don't see your desired version, your Xcode may not be up to date, or the version may no longer be supported by Apple.
+Thus, it is probably easier to deploy to an emulator. Xcode usually comes bundled with the most recent versions of the simulators, but you may wish to install other versions. To do so, go to **Xcode > Preferences**, and then **select the Components pane** (1). Choose the iOS version to target, and click the **Download** button (2) to install the emulator. If you don't see your desired version, your Xcode may not be up to date, or the version may no longer be supported by Apple.
+
+![File tree](emu.png)
 
 #### Running in the Simulator
 
-To run an app in the iOS simulator, follow the three steps in the picture below.
+To run an app in the iOS simulator, there are two ways to launch the app in the emulator.
+
+##### Manual Method
 
 ![Xcode image](xcode.png)
 
 First, **select your project** in the left panel, as shown. Second, **select an emulator** from the Scheme menu. Finally, **click the run** button to launch and use the app.
+
+##### Automatic Method
+
+![Xcode image 2](emu2.png)
+
+First, **launch the emulator** from the `Open Developer Tool` menu, and allow it to boot and load into iOS. Then, run `cordova run ios`, and Cordova will automatically build and deploy to the emulator.
 
 ## Setting up a Cordova Project
 
@@ -189,11 +199,13 @@ It is highly recommended that a content-security-policy directive is included in
 
 It is possible to install a variety of Cordova plugings that allow for the use of various different APIs such as location, screen orientation, and device information. Cordova plugins are written for use in pure JS, so using them in Angular requires proper tying info, which can usually be found at the [TypeSearch](https://microsoft.github.io/TypeSearch/) repository.
 
-### Deploying Cordova Apps to a Device
+### Building and Deploying Cordova Apps
 
 Once a Cordova project is ready for testing, it can be built using the command `cordova build <platform>`. This command prepares an APK or IPA for installation and testing on a device. The command also has two switches that are important, `--debug`/`--release` and `--device`/`--emulator`. This changes the build behaviour to target the appropriate configuration specified; this matters more for iOS where release builds may not run in the iPhone emulator.
 
 For Android, simply running `cordova emulate android` will prepare and build your app before deploying it to an emulator. The emulator must already exist within AVD Manager. To deploy to a device connected by USB, run `cordova run android`. Note that one can also manually install the app by copy-pasting the APK that is built by Cordova to the proper location.
+
+For iOS, running `cordova run ios` will build the app and attempt to deploy it to a connected iOS emulator or connected iOS device. The emulator and/or device must be set up in Xcode as specified in the iOS Build Environment section.
 
 ### Debugging Installed Apps
 
